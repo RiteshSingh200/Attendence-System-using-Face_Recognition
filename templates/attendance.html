@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance Dashboard - ProximaScan{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+  <!-- Sidebar -->
+  <div class="col-md-3 col-lg-2 mb-4">
+    <div class="list-group shadow-sm">
+      <a href="{{ url_for('index') }}" class="list-group-item list-group-item-action">
+        <i class="fas fa-camera"></i> Face Authentication
+      </a>
+      <a href="{{ url_for('attendance') }}" class="list-group-item list-group-item-action active">
+        <i class="fas fa-calendar-check"></i> Attendance
+      </a>
+      <a href="{{ url_for('about') }}" class="list-group-item list-group-item-action">
+        <i class="fas fa-info-circle"></i> About
+      </a>
+      <a href="{{ url_for('contact') }}" class="list-group-item list-group-item-action">
+        <i class="fas fa-envelope"></i> Contact
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="col-md-9 col-lg-10">
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0"><i class="fas fa-calendar-check"></i> Today's Attendance</h4>
+        <a href="{{ url_for('export_csv') }}" class="btn btn-light btn-sm">
+          <i class="fas fa-file-export"></i> Export CSV
+        </a>
+      </div>
+      <div class="card-body">
+        {% if today_attendance %}
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for record in today_attendance %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td><i class="fas fa-user"></i> {{ record[1] }}</td>
+                  <td>{{ record[2] }}</td>
+                  <td>{{ record[3] }}</td>
+                  <td>
+                    {% if record[4] == "In" %}
+                      <span class="badge bg-success"><i class="fas fa-sign-in-alt"></i> {{ record[4] }}</span>
+                    {% elif record[4] == "Out" %}
+                      <span class="badge bg-danger"><i class="fas fa-sign-out-alt"></i> {{ record[4] }}</span>
+                    {% else %}
+                      <span class="badge bg-secondary">{{ record[4] }}</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="alert alert-info text-center">
+            <i class="fas fa-info-circle"></i> No attendance records found for today.
+          </div>
+        {% endif %}
+
+        <!-- Add Employee Form -->
+        <div class="mt-4">
+          <h5>Add New Employee</h5>
+          <form method="POST" class="row g-3">
+            <div class="col-auto">
+              <input type="text" name="name" class="form-control" placeholder="Employee Name" required>
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add Employee</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

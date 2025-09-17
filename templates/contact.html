@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - ProximaScan{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <h2 class="mb-3 text-primary"><i class="fas fa-envelope"></i> Contact Us</h2>
+    <p>If you have any questions or need support regarding ProximaScan, feel free to reach out using the form below.</p>
+    <form>
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Your Name">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="you@example.com">
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea id="message" class="form-control" rows="4" placeholder="Your message here..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+    </form>
+    <p class="mt-3 text-muted">
+      Note: This form is for demonstration purposes. You can connect it to a backend email or database system if required.
+    </p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Face Authentication - ProximaScan{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+  <div class="card shadow-lg p-4">
+    <h2 class="mb-3 text-primary">
+      <i class="fas fa-user-check"></i> Face Authentication Demo
+    </h2>
+    <p class="text-muted">Position your face in front of the camera and click authenticate.</p>
+
+    <div class="video-container mb-3">
+      <img src="{{ url_for('video_feed') }}" width="640" height="480" class="img-fluid rounded border shadow-sm">
+    </div>
+
+    <button onclick="authenticate()" class="btn btn-lg btn-success mb-3" id="scanBtn">
+      <i class="fas fa-camera"></i> Authenticate
+    </button>
+
+    <div id="result" class="alert mt-3 d-none"></div>
+  </div>
+</div>
+
+<script>
+async function authenticate() {
+  const btn = document.getElementById("scanBtn");
+  const resultDiv = document.getElementById("result");
+
+  // Show loading state
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
+  resultDiv.className = "alert alert-info";
+  resultDiv.innerText = "Processing...";
+
+  try {
+    let res = await fetch("/authenticate", { method: "POST" });
+    let data = await res.json();
+
+    if (data.name) {
+      resultDiv.className = "alert alert-success";
+      resultDiv.innerHTML = `
+        <strong>Welcome, ${data.name}!</strong><br>
+        Status: ${data.status}<br>
+        Confidence: ${data.confidence ? data.confidence.toFixed(2) + "%" : "N/A"}
+      `;
+    } else {
+      resultDiv.className = "alert alert-danger";
+      resultDiv.innerHTML = `
+        <strong>Face not recognized.</strong><br>
+        Status: ${data.status}
+      `;
+    }
+  } catch (err) {
+    resultDiv.className = "alert alert-danger";
+    resultDiv.innerText = "Error connecting to server.";
+  } finally {
+    // Reset button
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-camera"></i> Authenticate';
+  }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}About - ProximaScan{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <h2 class="mb-3 text-primary"><i class="fas fa-info-circle"></i> About ProximaScan</h2>
+    <p>
+      ProximaScan is an advanced <strong>Face Recognition Attendance System</strong> built with Flask, OpenCV, and SQLite.
+      It allows organizations to automate employee attendance with secure and reliable biometric authentication.
+    </p>
+    <p>
+      Features include:
+    </p>
+    <ul>
+      <li>Real-time face authentication with live webcam feed.</li>
+      <li>Attendance tracking with in/out timestamps.</li>
+      <li>Employee registration and management.</li>
+      <li>Export attendance records in CSV format.</li>
+      <li>Responsive dashboard for easy monitoring.</li>
+    </ul>
+    <p>
+      This system ensures accuracy, eliminates manual errors, and saves time in managing attendance records.
+    </p>
+  </div>
+</div>
+{% endblock %}

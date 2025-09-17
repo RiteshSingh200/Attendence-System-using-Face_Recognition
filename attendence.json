@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Alice Johnson",
+    "date": "2025-09-15",
+    "time": "09:05:23",
+    "status": "time_in"
+  },
+  {
+    "name": "Alice Johnson",
+    "date": "2025-09-15",
+    "time": "17:30:12",
+    "status": "time_out"
+  },
+  {
+    "name": "Bob Smith",
+    "date": "2025-09-15",
+    "time": "09:12:45",
+    "status": "time_in"
+  },
+  {
+    "name": "Charlie Lee",
+    "date": "2025-09-16",
+    "time": "09:00:15",
+    "status": "time_in"
+  },
+  {
+    "name": "Charlie Lee",
+    "date": "2025-09-16",
+    "time": "17:02:41",
+    "status": "time_out"
+  }
+]
